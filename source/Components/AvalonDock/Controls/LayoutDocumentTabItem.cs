@@ -29,13 +29,13 @@ namespace AvalonDock.Controls
 	{
 		#region fields
 
-		private List<Rect> _otherTabsScreenArea = null;
-		private List<TabItem> _otherTabs = null;
+		private List<Rect> _otherTabsScreenArea;
+		private List<TabItem> _otherTabs;
 		private Rect _parentDocumentTabPanelScreenArea;
 		private DocumentPaneTabPanel _parentDocumentTabPanel;
-		private bool _isMouseDown = false;
+		private bool _isMouseDown;
 		private Point _mouseDownPoint;
-		private bool _allowDrag = false;
+		private bool _allowDrag;
 
 		#endregion fields
 
@@ -44,7 +44,8 @@ namespace AvalonDock.Controls
 		/// <summary>Static class constructor to register WPF style keys.</summary>
 		static LayoutDocumentTabItem()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(LayoutDocumentTabItem), new FrameworkPropertyMetadata(typeof(LayoutDocumentTabItem)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(LayoutDocumentTabItem),
+				new FrameworkPropertyMetadata(typeof(LayoutDocumentTabItem)));
 		}
 
 		#endregion Contructors
@@ -54,8 +55,9 @@ namespace AvalonDock.Controls
 		#region Model
 
 		/// <summary><see cref="Model"/> dependency property.</summary>
-		public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(nameof(Model), typeof(LayoutContent), typeof(LayoutDocumentTabItem),
-				new FrameworkPropertyMetadata(null, OnModelChanged));
+		public static readonly DependencyProperty ModelProperty = DependencyProperty.Register(nameof(Model),
+			typeof(LayoutContent), typeof(LayoutDocumentTabItem),
+			new FrameworkPropertyMetadata(null, OnModelChanged));
 
 		/// <summary>Gets/sets the layout content model attached to the tab item.</summary>
 		[Bindable(true), Description("Gets wether this floating window is being dragged."), Category("Other")]
@@ -66,7 +68,8 @@ namespace AvalonDock.Controls
 		}
 
 		/// <summary>Handles changes to the <see cref="Model"/> property.</summary>
-		private static void OnModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((LayoutDocumentTabItem)d).OnModelChanged(e);
+		private static void OnModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) =>
+			((LayoutDocumentTabItem)d).OnModelChanged(e);
 
 		/// <summary>Provides derived classes an opportunity to handle changes to the <see cref="Model"/> property.</summary>
 		protected virtual void OnModelChanged(DependencyPropertyChangedEventArgs e)
@@ -83,8 +86,9 @@ namespace AvalonDock.Controls
 		#region LayoutItem
 
 		/// <summary><see cref="LayoutItem"/> Read-Only dependency property.</summary>
-		private static readonly DependencyPropertyKey LayoutItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(LayoutItem), typeof(LayoutItem), typeof(LayoutDocumentTabItem),
-				new FrameworkPropertyMetadata(null));
+		private static readonly DependencyPropertyKey LayoutItemPropertyKey = DependencyProperty.RegisterReadOnly(
+			nameof(LayoutItem), typeof(LayoutItem), typeof(LayoutDocumentTabItem),
+			new FrameworkPropertyMetadata(null));
 
 		public static readonly DependencyProperty LayoutItemProperty = LayoutItemPropertyKey.DependencyProperty;
 
@@ -111,8 +115,16 @@ namespace AvalonDock.Controls
 			base.OnMouseLeftButtonDown(e);
 			CaptureMouse();
 			_allowDrag = false;
-			Model.IsActive = true;
-			if (Model is LayoutDocument layoutDocument && !layoutDocument.CanMove) return;
+			if (Model != null)
+			{
+				Model.IsActive = true;
+			}
+
+			if (Model is LayoutDocument layoutDocument && !layoutDocument.CanMove)
+			{
+				return;
+			}
+			
 			if (e.ClickCount != 1) return;
 			_mouseDownPoint = e.GetPosition(this);
 			_isMouseDown = true;
@@ -127,30 +139,35 @@ namespace AvalonDock.Controls
 			{
 				var ptMouseMove = e.GetPosition(this);
 				CaptureMouse();
-				if (Math.Abs(ptMouseMove.X - _mouseDownPoint.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(ptMouseMove.Y - _mouseDownPoint.Y) > SystemParameters.MinimumVerticalDragDistance)
+				if (Math.Abs(ptMouseMove.X - _mouseDownPoint.X) > SystemParameters.MinimumHorizontalDragDistance ||
+				    Math.Abs(ptMouseMove.Y - _mouseDownPoint.Y) > SystemParameters.MinimumVerticalDragDistance)
 				{
 					UpdateDragDetails();
 					_isMouseDown = false;
 					_allowDrag = true;
 				}
 			}
+
 			if (!IsMouseCaptured || !_allowDrag) return;
 			var mousePosInScreenCoord = this.PointToScreenDPI(e.GetPosition(this));
 			if (!_parentDocumentTabPanelScreenArea.Contains(mousePosInScreenCoord))
 				StartDraggingFloatingWindowForContent();
 			else
 			{
-				var indexOfTabItemWithMouseOver = _otherTabsScreenArea.FindIndex(r => r.Contains(mousePosInScreenCoord));
+				var indexOfTabItemWithMouseOver =
+					_otherTabsScreenArea.FindIndex(r => r.Contains(mousePosInScreenCoord));
 				if (indexOfTabItemWithMouseOver < 0) return;
 				var targetModel = _otherTabs[indexOfTabItemWithMouseOver].Content as LayoutContent;
-				var container = Model.Parent as ILayoutContainer;
+				var container = Model.Parent;
 				var containerPane = Model.Parent as ILayoutPane;
 
-				if (containerPane is LayoutDocumentPane layoutDocumentPane && !layoutDocumentPane.CanRepositionItems) return;
-				if (containerPane.Parent is LayoutDocumentPaneGroup layoutDocumentPaneGroup && !layoutDocumentPaneGroup.CanRepositionItems) return;
+				if (containerPane is LayoutDocumentPane layoutDocumentPane &&
+				    !layoutDocumentPane.CanRepositionItems) return;
+				if (containerPane?.Parent is LayoutDocumentPaneGroup layoutDocumentPaneGroup &&
+				    !layoutDocumentPaneGroup.CanRepositionItems) return;
 
 				var childrenList = container.Children.ToList();
-				containerPane.MoveChild(childrenList.IndexOf(Model), childrenList.IndexOf(targetModel));
+				containerPane?.MoveChild(childrenList.IndexOf(Model), childrenList.IndexOf(targetModel));
 				Model.IsActive = true;
 				_parentDocumentTabPanel.UpdateLayout();
 				UpdateDragDetails();
@@ -187,7 +204,7 @@ namespace AvalonDock.Controls
 			{
 				LayoutItem.CloseCommand.Execute(null);
 			}
-			
+
 			base.OnMouseDown(e);
 		}
 
@@ -199,7 +216,8 @@ namespace AvalonDock.Controls
 		{
 			_parentDocumentTabPanel = this.FindLogicalAncestor<DocumentPaneTabPanel>();
 			_parentDocumentTabPanelScreenArea = _parentDocumentTabPanel.GetScreenArea();
-			_otherTabs = _parentDocumentTabPanel.Children.Cast<TabItem>().Where(ch => ch.Visibility != Visibility.Collapsed).ToList();
+			_otherTabs = _parentDocumentTabPanel.Children.Cast<TabItem>()
+				.Where(ch => ch.Visibility != Visibility.Collapsed).ToList();
 			var currentTabScreenArea = this.FindLogicalAncestor<TabItem>().GetScreenArea();
 			_otherTabsScreenArea = _otherTabs.Select(ti =>
 			{
