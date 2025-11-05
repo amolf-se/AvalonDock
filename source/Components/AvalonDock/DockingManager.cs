@@ -7,9 +7,6 @@
    License (Ms-PL) as published at https://opensource.org/licenses/MS-PL
  ************************************************************************/
 
-using AvalonDock.Controls;
-using AvalonDock.Layout;
-using AvalonDock.Themes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +21,9 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using AvalonDock.Controls;
+using AvalonDock.Layout;
+using AvalonDock.Themes;
 
 namespace AvalonDock
 {
@@ -1370,7 +1370,7 @@ namespace AvalonDock
 
 		/// <summary><see cref="IgnoreTabControlKeyBindings"/> dependency property.</summary>
 		public static readonly DependencyProperty IgnoreTabControlKeyBindingsProperty = DependencyProperty.Register(nameof(IgnoreTabControlKeyBindings), typeof(bool), typeof(DockingManager),
-					new FrameworkPropertyMetadata(null));
+					new FrameworkPropertyMetadata(true));
 
 		/// <summary>Gets/sets the <see cref="Style"/> to apply to a <see cref="LayoutDocumentItem"/> object.</summary>
 		[Bindable(true), Description("Gets/sets the Style to apply to a LayoutDocumentItem object."), Category("Layout")]
@@ -1707,8 +1707,8 @@ namespace AvalonDock
 						newFW.Show();
 					else
 						newFW.Hide();
-      
-      					if (panegroup != null && panegroup.IsMaximized)
+
+					if (panegroup != null && panegroup.IsMaximized)
 						newFW.WindowState = WindowState.Maximized;
 				}), DispatcherPriority.Send);
 
@@ -1888,7 +1888,7 @@ namespace AvalonDock
 			LayoutFloatingWindowControlClosed?.Invoke(this, new LayoutFloatingWindowControlClosedEventArgs(floatingWindow));
 		}
 
-		
+
 
 		internal void ExecuteCloseAllButThisCommand(LayoutContent contentSelected)
 		{
@@ -1987,7 +1987,7 @@ namespace AvalonDock
 			}
 			if (hidingArgs?.Cancel == true) return;
 
-			if(model.HideAnchorable(true))
+			if (model.HideAnchorable(true))
 				AnchorableHidden?.Invoke(this, new AnchorableHiddenEventArgs(model));
 		}
 
@@ -2009,17 +2009,17 @@ namespace AvalonDock
 		internal void ExecuteContentActivateCommand(LayoutContent content) => content.IsActive = true;
 
 		internal void RaiseDocumentClosing(DocumentClosingEventArgs e) => DocumentClosing?.Invoke(this, e);
-		
+
 		internal void RaiseAnchorableHiding(AnchorableHidingEventArgs e) => AnchorableHiding?.Invoke(this, e);
 
 		internal void RaiseAnchorableClosing(AnchorableClosingEventArgs e) => AnchorableClosing?.Invoke(this, e);
 
 		internal void RaiseDocumentClosed(LayoutDocument document) => DocumentClosed?.Invoke(this, new DocumentClosedEventArgs(document));
-		
+
 		internal void RaiseAnchorableClosed(LayoutAnchorable anchorable) => AnchorableClosed?.Invoke(this, new AnchorableClosedEventArgs(anchorable));
-		
+
 		internal void RaiseAnchorableHidden(LayoutAnchorable anchorable) => AnchorableHidden?.Invoke(this, new AnchorableHiddenEventArgs(anchorable));
-		
+
 		#endregion Internal Methods
 
 		#region Overrides
@@ -2075,32 +2075,32 @@ namespace AvalonDock
 			switch (e.PropertyName)
 			{
 				case nameof(LayoutRoot.RootPanel):
+				{
+					if (IsInitialized)
 					{
-						if (IsInitialized)
-						{
-							var layoutRootPanel = CreateUIElementForModel(Layout.RootPanel) as LayoutPanelControl;
-							LayoutRootPanel = layoutRootPanel;
-						}
-						break;
+						var layoutRootPanel = CreateUIElementForModel(Layout.RootPanel) as LayoutPanelControl;
+						LayoutRootPanel = layoutRootPanel;
 					}
+					break;
+				}
 				case nameof(LayoutRoot.ActiveContent):
-					{
-						//set focus on active element only after a layout pass is completed
-						//it's possible that it is not yet visible in the visual tree
-						//if (_setFocusAsyncOperation == null)
-						//{
-						//    _setFocusAsyncOperation = Dispatcher.BeginInvoke(new Action(() =>
-						// {
-						if (Layout.ActiveContent != null)
-							FocusElementManager.SetFocusOnLastElement(Layout.ActiveContent);
-						//_setFocusAsyncOperation = null;
-						//  } ), DispatcherPriority.Input );
-						//}
+				{
+					//set focus on active element only after a layout pass is completed
+					//it's possible that it is not yet visible in the visual tree
+					//if (_setFocusAsyncOperation == null)
+					//{
+					//    _setFocusAsyncOperation = Dispatcher.BeginInvoke(new Action(() =>
+					// {
+					if (Layout.ActiveContent != null)
+						FocusElementManager.SetFocusOnLastElement(Layout.ActiveContent);
+					//_setFocusAsyncOperation = null;
+					//  } ), DispatcherPriority.Input );
+					//}
 
-						if (!_insideInternalSetActiveContent)
-							ActiveContent = Layout.ActiveContent?.Content;
-						break;
-					}
+					if (!_insideInternalSetActiveContent)
+						ActiveContent = Layout.ActiveContent?.Content;
+					break;
+				}
 			}
 		}
 
