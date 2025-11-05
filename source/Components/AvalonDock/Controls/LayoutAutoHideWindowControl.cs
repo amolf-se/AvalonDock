@@ -86,6 +86,22 @@ namespace AvalonDock.Controls
 
 		#endregion AnchorableStyle
 
+		#region AnchorableGridStyle
+
+		/// <summary><see cref="AnchorableGridStyle"/> dependency property.</summary>
+		public static readonly DependencyProperty AnchorableGridStyleProperty = DependencyProperty.Register(nameof(AnchorableGridStyle), typeof(Style), typeof(LayoutAutoHideWindowControl),
+				new FrameworkPropertyMetadata(null));
+
+		/// <summary>Gets/sets the style to apply to the parent Grid of the <see cref="LayoutAnchorableControl"/> hosted in this auto hide window.</summary>
+		[Bindable(true), Description("Gets/sets the style to apply to the parent Grid of the LayoutAnchorableControl hosted in this auto hide window."), Category("Style")]
+		public Style AnchorableGridStyle
+		{
+			get => (Style)GetValue(AnchorableGridStyleProperty);
+			set => SetValue(AnchorableGridStyleProperty, value);
+		}
+
+		#endregion AnchorableGridStyle
+
 		#region Background
 
 		/// <summary><see cref="Background"/> dependency property.</summary>
@@ -280,8 +296,9 @@ namespace AvalonDock.Controls
 
 		private void CreateInternalGrid()
 		{
-			_internalGrid = new Grid { FlowDirection = FlowDirection.LeftToRight };
+			_internalGrid = new Grid { FlowDirection = FlowDirection.LeftToRight, Style = AnchorableGridStyle };
 			_internalGrid.SetBinding(Panel.BackgroundProperty, new Binding(nameof(Grid.Background)) { Source = this });
+			_internalGrid.SizeChanged += (e, s) => InvalidateMeasure();
 
 			_internalHost = new LayoutAnchorableControl { Model = _model, Style = AnchorableStyle };
 			_internalHost.SetBinding(FlowDirectionProperty, new Binding("Model.Root.Manager.FlowDirection") { Source = this });
