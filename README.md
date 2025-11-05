@@ -1,3 +1,26 @@
+# Project continuation notice
+This repository is a fork from [Dirkster99/AvalonDock](https://github.com/Dirkster99/AvalonDock).
+The upstream repository has become inactive and this fork is created to apply necessary fixes for our own projects.
+Additionally all upstream pull requests have been merged into this fork.
+
+## Attribution & license
+- Original project and contributors remain credited. See the original repository and source file headers for original copyright notices.
+- This fork preserves the Microsoft Public License (Ms-PL). You must retain existing copyright, patent, trademark, and attribution notices when redistributing.
+
+## Changes
+- Name has been changed to avoid confusion with the original project. The new name is `Amolf.AvalonDock`.
+- Version number has been changed to `5.0.0` to indicate the new fork.
+- Upstream pull requests have been merged into this fork.
+   - Pull Requests: 449, 451, 452, 454, 457, 459, 462, 466, 469, 486, 490, 498, 502, 506, 507, 508, 512
+
+> This project is not hosted on the public NuGet repository.
+
+> The README content below is from the original repository.
+Note that the download links are NOT updated and still point to the original repository.
+
+---
+
+
 | Downloads                                                                                                                                               | NuGet Packages
 | :------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------
 | [![NuGet](https://img.shields.io/nuget/dt/Dirkster.AvalonDock.svg)](http://nuget.org/packages/Dirkster.AvalonDock)                                      | [Dirkster.AvalonDock](http://nuget.org/packages/Dirkster.AvalonDock)
