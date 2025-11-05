@@ -615,7 +615,7 @@
                                             Viewport="0,0,4,4"
                                             ViewportUnits="Absolute">
                                             <DrawingBrush.Drawing>
-                                                <GeometryDrawing Brush="{Binding Fill, ElementName=DragHandleGeometryPlaceholder, Mode=OneWay, Converter={avalonDockConverters:NullToDoNothingConverter}}">
+                                                <GeometryDrawing Brush="{DynamicResource {x:Static reskeys:ResourceKeys.ToolWindowCaptionInactiveGrip}}">
                                                     <GeometryDrawing.Geometry>
                                                         <GeometryGroup>
                                                             <GeometryGroup.Children>
@@ -2141,7 +2141,7 @@
                                                         Viewport="0,0,4,4"
                                                         ViewportUnits="Absolute">
                                                         <DrawingBrush.Drawing>
-                                                            <GeometryDrawing Brush="{Binding Fill, ElementName=DragHandleGeometryPlaceholder, Mode=OneWay, Converter={avalonDockConverters:NullToDoNothingConverter}}">
+                                                            <GeometryDrawing Brush="{DynamicResource {x:Static reskeys:ResourceKeys.ToolWindowCaptionInactiveGrip}}">
                                                                 <GeometryDrawing.Geometry>
                                                                     <GeometryGroup>
                                                                         <GeometryGroup.Children>
