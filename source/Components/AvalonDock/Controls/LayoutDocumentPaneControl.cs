@@ -47,7 +47,7 @@ namespace AvalonDock.Controls
 		/// <param name="model"></param>
 		/// <param name="isVirtualizing">Whether tabbed items are virtualized or not.</param>
 		/// <param name="ignoreTabControlKeyBindingBindings">Whether TabControl keybindings are ignored or not.</param>
-		internal LayoutDocumentPaneControl(LayoutDocumentPane model, bool isVirtualizing, bool ignoreTabControlKeyBindingBindings = false)
+		internal LayoutDocumentPaneControl(LayoutDocumentPane model, bool isVirtualizing, bool ignoreTabControlKeyBindingBindings = true)
 			: base(isVirtualizing, ignoreTabControlKeyBindingBindings)
 		{
 			_model = model ?? throw new ArgumentNullException(nameof(model));
