@@ -463,7 +463,7 @@ namespace AvalonDock.Controls
 				if (_isTotalMarginSet)
 				{
 					// The LayoutAnchorableControl is bound via the ContentPresenter, hence it is best to do below in code and not in a style
-					// See https://github.com/Dirkster99/AvalonDock/pull/146#issuecomment-609974424
+					// See https://github.com/amolf-se/AvalonDock/pull/146#issuecomment-609974424
 					var layoutContents = this.GetChildrenRecursive()
 						.OfType<ContentPresenter>()
 						.Select(c => c.Content)

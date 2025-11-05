@@ -33,7 +33,7 @@ namespace AvalonDock.Controls
 		static DropDownControlArea()
 		{
 			// Fixing issue with Keyboard up/down in textbox in floating anchorable focusing DropDownControlArea
-			// https://github.com/Dirkster99/AvalonDock/issues/225
+			// https://github.com/amolf-se/AvalonDock/issues/225
 			FocusableProperty.OverrideMetadata(typeof(DropDownControlArea), new FrameworkPropertyMetadata(false));
 			
 			// See PreviewMouseRightButtonUpCallback for details.

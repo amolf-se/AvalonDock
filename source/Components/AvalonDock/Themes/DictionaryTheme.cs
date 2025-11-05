@@ -19,7 +19,7 @@ namespace AvalonDock.Themes
 	/// from an existing theme (by using theme.GetResourceUri()), and then replacing some key colors
 	/// (typically the "Accent" colors).
 	/// 
-	/// See Issue https://github.com/Dirkster99/AvalonDock/issues/189 for more details.</summary>
+	/// See Issue https://github.com/amolf-se/AvalonDock/issues/189 for more details.</summary>
 	public abstract class DictionaryTheme : Theme
 	{
 		#region Constructors

@@ -1,4 +1,4 @@
-﻿/************************************************************************
+/************************************************************************
    AvalonDock
 
    Copyright (C) 2007-2013 Xceed Software Inc.
@@ -7,10 +7,10 @@
    License (Ms-PL) as published at https://opensource.org/licenses/MS-PL
  ************************************************************************/
 
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Markup;
-using System;
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -29,20 +29,20 @@ using System;
 
 
 [assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
-                                     //(used if a resource is not found in the page, 
-                                     // or application resource dictionaries)
-    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
-                                              //(used if a resource is not found in the page, 
-                                              // app, or any theme specific resource dictionaries)
+	 ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
+												 //(used if a resource is not found in the page, 
+												 // or application resource dictionaries)
+	 ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
+															 //(used if a resource is not found in the page, 
+															 // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: XmlnsPrefix("https://github.com/Dirkster99/AvalonDock", "avalondock")]
-[assembly: XmlnsDefinition("https://github.com/Dirkster99/AvalonDock", "AvalonDock")]
-[assembly: XmlnsDefinition("https://github.com/Dirkster99/AvalonDock", "AvalonDock.Controls")]
-[assembly: XmlnsDefinition("https://github.com/Dirkster99/AvalonDock", "AvalonDock.Converters")]
-[assembly: XmlnsDefinition("https://github.com/Dirkster99/AvalonDock", "AvalonDock.Layout")]
-[assembly: XmlnsDefinition("https://github.com/Dirkster99/AvalonDock", "AvalonDock.Themes")]
+[assembly: XmlnsPrefix("https://github.com/amolf-se/AvalonDock", "avalondock")]
+[assembly: XmlnsDefinition("https://github.com/amolf-se/AvalonDock", "AvalonDock")]
+[assembly: XmlnsDefinition("https://github.com/amolf-se/AvalonDock", "AvalonDock.Controls")]
+[assembly: XmlnsDefinition("https://github.com/amolf-se/AvalonDock", "AvalonDock.Converters")]
+[assembly: XmlnsDefinition("https://github.com/amolf-se/AvalonDock", "AvalonDock.Layout")]
+[assembly: XmlnsDefinition("https://github.com/amolf-se/AvalonDock", "AvalonDock.Themes")]
 [assembly: XmlnsPrefix("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "avalondock")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "AvalonDock")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "AvalonDock.Controls")]

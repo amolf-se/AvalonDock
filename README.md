@@ -10,8 +10,12 @@ Additionally all upstream pull requests have been merged into this fork.
 ## Changes
 - Name has been changed to avoid confusion with the original project. The new name is `Amolf.AvalonDock`.
 - Version number has been changed to `5.0.0` to indicate the new fork.
-- Upstream pull requests have been merged into this fork.
+- The XAML namespaces have been updated to reflect the new project name.
+   - From: `xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"`
+   - To: `xmlns:avalonDock="https://github.com/amolf-se/AvalonDock"`
+- - Upstream pull requests have been merged into this fork.
    - Pull Requests: 449, 451, 452, 454, 457, 459, 462, 466, 469, 486, 490, 498, 502, 506, 507, 508, 512
+
 
 > This project is not hosted on the public NuGet repository.
 
